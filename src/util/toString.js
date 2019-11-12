@@ -7,7 +7,7 @@ export default function toString(obj) {
     });
 
     do {
-        result = result.replace('\"~--demo--~', '').replace('~--demo--~\"', '').replace(/\\n/g, '').replace(/\\\"/g,"\"");//最后一个replace将release模式中莫名生成的\"转换成"
+        result = result.replace('\"~--demo--~', '').replace('~--demo--~\"', '');
     } while (result.indexOf('~--demo--~') >= 0);
     return result;
 }
