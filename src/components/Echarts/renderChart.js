@@ -7,8 +7,15 @@ export default function renderChart(props) {
   return `
     document.getElementById('main').style.height = "${height}";
     document.getElementById('main').style.width = "${width}";
+    window.postMessage = function(data) {
+      window.ReactNativeWebView.postMessage(data);
+    };
     var myChart = echarts.init(document.getElementById('main'));
     myChart.setOption(${toString(props.option)});
+    window.addEventListener('message', function(e) {
+      var option = JSON.parse(e.data);
+      myChart.setOption(option);
+    });
     window.document.addEventListener('message', function(e) {
       var option = JSON.parse(e.data);
       myChart.setOption(option);
@@ -24,7 +31,7 @@ export default function renderChart(props) {
         }
         return val;
       });
-      window.postMessage(paramsString);
+      window.ReactNativeWebView.postMessage(paramsString);
     });
   `
 }

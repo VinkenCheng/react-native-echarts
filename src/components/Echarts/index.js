@@ -8,7 +8,18 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
+    chart: WebView;
     this.setNewOption = this.setNewOption.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.option !== this.props.option) {
+      if (Platform.OS === 'android') {
+        this.chart.reload();
+      } else {
+        this.setNewOption(nextProps.option);
+      }
+    }
   }
 
   // 预防过渡渲染
@@ -26,30 +37,22 @@ export default class App extends Component {
     return false
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.option !== this.props.option) {
-      // this.refs.chart.reload();
-      this.refs.chart.injectJavaScript(renderChart(nextProps))
-    }
-  }
-
   setNewOption(option) {
-    this.refs.chart.postMessage(JSON.stringify(option));
+    this.chart.postMessage(JSON.stringify(option));
   }
 
   render() {
     return (
-      <View style={{ flex: 1, height: this.props.height || 400, }}>
+      <View style={{ flex: 1, height: this.props.height || 400 }}>
         <WebView
-          ref="chart"
-          useWebKit={true}
+          ref={w => this.chart = w}
           scrollEnabled={false}
           injectedJavaScript={renderChart(this.props)}
           style={{
             height: this.props.height || 400,
             backgroundColor: this.props.backgroundColor || 'transparent'
           }}
-          scalesPageToFit={Platform.OS !== 'ios'}
+          // scalesPageToFit={Platform.OS !== 'ios'}
           originWhitelist={['*']}
           source={Platform.OS === 'ios' ? require('./tpl.html') : { uri: 'file:///android_asset/tpl.html' }}
           onMessage={event => this.props.onPress ? this.props.onPress(JSON.parse(event.nativeEvent.data)) : null}
