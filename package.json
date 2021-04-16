@@ -1,6 +1,6 @@
 {
   "name": "native-echarts",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "echarts for react-native",
   "main": "src/index.js",
   "directories": {
@@ -11,22 +11,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/somonus/react-native-echarts.git"
+    "url": "git+https://github.com/VinkenCheng/react-native-echarts.git"
   },
   "keywords": [
     "react-native",
     "echarts",
-    "chart",
-    "charts"
+    "react-native-echarts"
   ],
-  "author": "somonus",
+  "author": "Mankin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/somonus/react-native-echarts/issues"
+    "url": "https://github.com/VinkenCheng/react-native-echarts/issues"
   },
-  "homepage": "https://github.com/somonus/react-native-echarts#readme",
-  "dependencies": {
-    "echarts": "3.2.3",
-    "react-native-webview": ">= 9.4.0"
+  "homepage": "https://github.com/VinkenCheng/react-native-echarts#readme",
+  "peerDependencies": {
+    "react-native": "^0.58.0",
+    "react-native-webview": "^9.4.0"
   }
 }
